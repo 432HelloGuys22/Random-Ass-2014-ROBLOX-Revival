@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <script type="text/javascript" src="/js/jquery/jquery-1.7.2.min.js"></script> 
+        <link rel="stylesheet" href="css/Fetch.CSS"> 
+        <script type="text/javascript" src="/js/roblox.js"></script>
+        <link rel="stylesheet" href="css/Fetch.CSS">
+    </head>
+<body>
+    <div>
+        <div class="site-header">
+           <div id="navigation-container">
+              <a href="/Default.aspx" class="btn-logo" data-se="nav-logo"></a>
+              <div id="navigation-menu">
+                 <ul>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Home</a></li>
+                 </ul>
+              </div>
+            <div id="header-login-wrapper" class="iframe-login-signup">
+    <a id="header-signup" href="Login.html">
+        <span id="header-signup-text">Sign Up</span>
+    </a>
+
+    <span id="header-or">
+        <span id="header-or-text">or</span>
+    </span>
+
+    <span id="login-span">
+        <a id="header-login" class="btn-control btn-control-large" href="Login.html">
+            <span id="header-login-btn">Login</span> <span class="grey-arrow">▼</span>
+        </a>
+    </span>
+</div>
+           </div>
+        </div>
+        <style>
+           html {
+           background: #123f83;
+           }
+        </style>
+        <div class="forceSpace">&nbsp;</div>
+        <noscript>
+           <div class="SystemAlert">
+              <div class="SystemAlertText">Please enable Javascript to use all the features on this site.</div>
+           </div>
+        </noscript>
+        <div id="BodyWrapper">
+           <div id="RepositionBody">
+              <div id="Body" style="width:970px">
+<div style="border: 1px solid #ccc; padding: 20px; background-color: #f2f2f2; font-family: Arial, sans-serif;">
+    <h3 style="margin-top: 0; font-size: 14px; font-weight: bold; color: #333;">Get ROBLOX credit and spend it on:</h3>
+    
+    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <img src="https://web.archive.org/web/20131110205441im_/https://s3.amazonaws.com/images.roblox.com/a33ef57e02fc3023c8415ccba7694f38.png" alt="Robux" style="width: 50px; height: 50px; margin-right: 15px;">
+        <span style="font-size: 16px; font-weight: bold; color: #333;">Robux</span>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <img src="https://web.archive.org/web/20131110205441im_/https://s3.amazonaws.com/images.roblox.com/ce969a0d2f62396386e678229533f681.png" alt="Classic BC" style="width: 50px; height: 50px; margin-right: 15px;">
+        <span style="font-size: 16px; font-weight: bold; color: #333;">Classic Builders Club</span>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <img src="https://web.archive.org/web/20131110205441im_/https://s3.amazonaws.com/images.roblox.com/c727f8d945ac06b9e35a226f7751aa0c.png" alt="Turbo BC" style="width: 50px; height: 50px; margin-right: 15px;">
+        <span style="font-size: 16px; font-weight: bold; color: #333;">Turbo Builders Club <span style="font-weight: normal; color: #666; font-size: 14px;">(6 & 12 months)</span></span>
+    </div>
+
+    <div style="display: flex; align-items: center;">
+        <img src="https://web.archive.org/web/20131110205441im_/https://s3.amazonaws.com/images.roblox.com/f874457af275fbe787a1b7d8e7ddec80.png" alt="OBC" style="width: 50px; height: 50px; margin-right: 15px;">
+        <span style="font-size: 16px; font-weight: bold; color: #333;">Outrageous Builders Club <span style="font-weight: normal; color: #666; font-size: 14px;">(6 & 12 months)</span></span>
+    </div>
+    <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #ddd; min-height: 45px; font-family: Arial;">
+    <span class="form-label" style="float:left; padding-top:5px; margin-right:10px; font-weight: bold; font-size: 13px;">Enter Code:</span>
+    <div style="float: left; width: 183px; text-align:left;">
+        <input type="text" id="redeemCodeInput" class="text-box text-box-medium" placeholder="Enter PIN here..." style="width:183px; padding: 4px;" />
+        <span class="tip-text" style="font-size: 10px; color: #666; display: block; margin-top: 2px;">(Form) Enter your 10-digit code</span>
+    </div>
+    <div style="float:left; margin-left:15px;">
+        <a class="btn-medium btn-primary" onclick="redeemCode()" style="cursor: pointer; text-decoration: none;">Redeem</a>
+    </div>
+</div>
+</div>
+              </div>
+           </div>
+        </div>
+        <div id="Footer" class="footer-container">
+        </div>
+     </div>
+     <script>
+    function redeemCode() {
+        var codeInput = document.getElementById('redeemCodeInput');
+        var code = codeInput.value.trim();
+        
+        // 1. Check if the box is empty
+        if (code === "") {
+            alert("Please enter a PIN code.");
+            return;
+        } 
+
+        // 2. Check if it is EXACTLY 10 digits and only numbers
+        // This uses a "Regular Expression" to check for 10 digits (0-9)
+        var isTenDigits = /^\d{10}$/.test(code);
+
+        if (!isTenDigits) {
+            alert("Invalid PIN. The code must be exactly 10 numbers long.");
+            return;
+        }
+
+        // 3. Logic for valid 10-digit codes
+        if (code === "1234567890") {
+            alert("Success! Test Code Redeemed.");
+        } else {
+            alert("Success! Code " + code + " has been redeemed.");
+        }
+
+        // Clear the box
+        codeInput.value = "";
+    }
+
+    // This makes the 'Enter' key work for your input
+    document.getElementById("redeemCodeInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            redeemCode();
+        }
+    });
+</script>
+<script>
+    // These are your official 10-digit codes
+    const codes = {
+        "1111222233": 100,
+        "1010101010": 1000,
+        "0001110002": 5000,
+        "8888444422": 20000
+    };
+
+    function updateCurrency() {
+        // Pull data from browser memory (Defaults: 0 Robux, 10 Tix)
+        let robux = localStorage.getItem('userRobux') || "0";
+        let tix = localStorage.getItem('userTix') || "10";
+
+        // Update every element on the page using these classes
+        let rElements = document.getElementsByClassName('robux');
+        for(let i = 0; i < rElements.length; i++) {
+            rElements[i].innerText = parseInt(robux).toLocaleString();
+        }
+
+        let tElements = document.getElementsByClassName('tickets');
+        for(let i = 0; i < tElements.length; i++) {
+            tElements[i].innerText = parseInt(tix).toLocaleString();
+        }
+    }
+
+    function redeemCode() {
+        let input = document.getElementById('redeemCodeInput');
+        if (!input) return;
+
+        let enteredCode = input.value.trim();
+
+        if (codes[enteredCode]) {
+            let reward = codes[enteredCode];
+            let current = parseInt(localStorage.getItem('userRobux') || "0");
+            
+            // Save new total
+            localStorage.setItem('userRobux', current + reward);
+            
+            alert("Success! Added " + reward + " Robux.");
+            input.value = "";
+            updateCurrency();
+        } else {
+            alert("Invalid PIN. Please use an official 10-digit code.");
+        }
+    }
+
+    // Initialize the numbers when the page finishes loading
+    window.onload = updateCurrency;
+</script>
+</body>
+</html>

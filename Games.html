@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <script type="text/javascript" src="/js/jquery/jquery-1.7.2.min.js"></script> 
+        <link rel="stylesheet" href="css/Fetch.CSS"> 
+        <script type="text/javascript" src="/js/roblox.js"></script>
+        <link rel="stylesheet" href="css/Fetch.CSS">
+    </head>
+<body>
+    <div>
+        <div class="site-header">
+           <div id="navigation-container">
+              <a href="/Default.aspx" class="btn-logo" data-se="nav-logo"></a>
+              <div id="navigation-menu">
+                 <ul>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Home</a></li>
+                    <li><a href="/Games.html" ref="nav-myroblox" data-se="nav-myhome">Games</a></li>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Builders Club</a></li>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Help</a></li>
+                    <li><a href="/Develop.html" ref="nav-myroblox" data-se="nav-myhome">Develop</a></li>
+                 </ul>
+              </div>
+<div id="header-login-wrapper" class="iframe-login-signup">
+    <a id="header-signup" href="Login.html">
+        <span id="header-signup-text">Sign Up</span>
+    </a>
+
+    <span id="header-or">
+        <span id="header-or-text">or</span>
+    </span>
+
+    <span id="login-span">
+        <a id="header-login" class="btn-control btn-control-large" href="Login.html">
+            <span id="header-login-btn">Login</span> <span class="grey-arrow">▼</span>
+        </a>
+    </span>
+</div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <style>
+            
+           html {
+           background: #123f83;
+           }
+        </style>
+        <div class="forceSpace">&nbsp;</div>
+        <noscript>
+           <div class="SystemAlert">
+              <div class="SystemAlertText">Please enable Javascript to use all the features on this site.</div>
+           </div>
+        </noscript>
+        <div id="BodyWrapper">
+           <div id="RepositionBody">
+              <div id="Body" style="width:970px">
+ <h1>Games</h1>
+<p>List Of Games</p>
+
+<div id="user-games-grid" style="display: flex; flex-wrap: wrap; gap: 20px; padding: 20px 0;">
+    </div>
+<script type="text/javascript" src="/js/widgets/tabs.js" data-readme="Can go at end of file."></script>
+              </div>
+           </div>
+        </div>
+        <div id="Footer" class="footer-container">
+        </div>
+     </div>
+</body>
+<script type="text/javascript">
+    window.addEventListener('load', function() {
+        // 1. Get the game data we saw in your Application tab
+        var rawData = localStorage.getItem('UserGames');
+        var userGames = JSON.parse(rawData) || [];
+
+        // 2. Find the grid container
+        var grid = document.getElementById('user-games-grid');
+
+        if (grid) {
+            // 3. Loop through your games and build the HTML for each one
+            userGames.forEach(function(game) {
+    // This ensures we find the name even if the capitalization is different
+    var displayName = game.Name || game.name || "Untitled Game";
+    var displayThumb = game.thumb || 'images/game_thumbnail.png';
+
+    grid.innerHTML += `
+        <div class="game-item" style="width: 160px; margin-bottom: 10px; display: inline-block; vertical-align: top; margin-right: 15px;">
+            <a href="GameCard.html?name=${encodeURIComponent(displayName)}&creator=${encodeURIComponent(game.Creator || 'EpiKUser')}&visits=${game.Visits || 0}&created=${encodeURIComponent(game.Date || '')}" style="text-decoration:none;">
+                <div style="border:1px solid #ccc; padding:2px; background:#fff;">
+                    <img src="${displayThumb}" style="width:150px; height:150px; display:block;" onerror="this.src='images/game_thumbnail.png'">
+                </div>
+                <div style="color:#035fb5; font-weight:bold; font-family:Arial; font-size:13px; margin-top:5px; text-align:center;">
+                    ${displayName}
+                </div>
+            </a>
+        </div>
+    `;
+            });
+        }
+    });
+</script>
+</html>
