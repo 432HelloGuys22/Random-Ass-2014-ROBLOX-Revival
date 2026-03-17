@@ -197,5 +197,57 @@ style>
     // Initialize the numbers when the page finishes loading
     window.onload = updateCurrency;
 </script>
+<div>
+    <script>
+        async function loadProfileData() {
+        const params = new URLSearchParams(window.location.search);
+        const targetUser = params.get('user');
+
+        if (!targetUser) return;
+
+        try {
+            const response = await fetch('/api/users.json');
+            const users = await response.json();
+            // This is the line that connects the URL to your Database:
+            const user = users.find(u => u.username.toLowerCase() === targetUser.toLowerCase());
+
+            if (user) {
+                // 1. Update Username
+                document.getElementById("profileUsername").innerText = user.username;
+
+                // 2. Update Blurb
+                if (document.getElementById("userBlurb")) {
+                    document.getElementById("userBlurb").innerText = user.blurb || "No blurb set.";
+                }
+
+                // 3. Update Join Date
+                if (document.getElementById("joinDateText")) {
+                    document.getElementById("joinDateText").innerText = "Join Date: " + user.joinDate;
+                }
+
+                // 4. Status Text and Color
+                const statusEl = document.getElementById("userStatus");
+                if (statusEl) {
+                    statusEl.innerText = "[" + user.status + "]";
+                    statusEl.style.color = (user.status === "Online") ? "#00aa00" : "#555";
+                }
+
+                // 5. Set the page title
+                document.title = user.username + "'s Profile - ROBLOX";
+            }
+        } catch (e) {
+            console.log("Error loading profile:", e);
+        }
+    } // <--- THIS IS THE ONE! You need this bracket to close 'loadProfileData'
+
+    // This part makes the functions actually START when the page opens
+    window.onload = function() {
+        if (typeof updateCurrency === "function") {
+            updateCurrency(); 
+        }
+        loadProfileData();
+    }
+    </script>
+</div>
 </body>
 </html>
