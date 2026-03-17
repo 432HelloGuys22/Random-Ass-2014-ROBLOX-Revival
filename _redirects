@@ -1,0 +1,5 @@
+/mobileapi/check-app-version* /Login/Negotiate.Json 200
+/Login/Negotiate* /Login/Negotiate.Json 200
+/Games/List-Json* /Games/List-Json 200
+/Asset/CharacterFetch* /Asset/CharacterFetch 200
+/asset/* /asset/:splat 200

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <script type="text/javascript" src="/js/jquery/jquery-1.7.2.min.js"></script> 
+        <link rel="stylesheet" href="css/StyleGuide.css"> 
+        <script type="text/javascript" src="/js/roblox.js"></script>
+        <link rel="stylesheet" href="css/Fetch.CSS">
+    </head>
+<body>
+    <div>
+        <div class="site-header">
+           <div id="navigation-container">
+              <a href="/Default.aspx" class="btn-logo" data-se="nav-logo"></a>
+              <div id="navigation-menu">
+                 <ul>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Home</a></li>
+                 </ul>
+              </div>
+<div id="header-login-wrapper" class="iframe-login-signup">
+    <a id="header-signup" href="Login.html">
+        <span id="header-signup-text">Sign Up</span>
+    </a>
+
+    <span id="header-or">
+        <span id="header-or-text">or</span>
+    </span>
+
+    <span id="login-span">
+        <a id="header-login" class="btn-control btn-control-large" href="Login.html">
+            <span id="header-login-btn">Login</span> <span class="grey-arrow">▼</span>
+        </a>
+    </span>
+</div>
+           </div>
+        </div>
+        <style>
+           html {
+           background: #123f83;
+           }
+        </style>
+        <div class="forceSpace">&nbsp;</div>
+        <noscript>
+           <div class="SystemAlert">
+              <div class="SystemAlertText">Please enable Javascript to use all the features on this site.</div>
+           </div>
+        </noscript>
+        <div id="BodyWrapper">
+           <div id="RepositionBody">
+              <h1 class="game-title"></h1>
+<div id="MainContent" style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px;">
+
+    <div class="game-left-col" style="width: 420px;">
+        <div class="play-area-box" style="background: #eee; height: 250px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;">
+             </div>
+        <p class="game-description" style="margin-top: 10px; font-size: 14px; color: #333;"></p>
+    </div>
+
+    <div class="game-right-col" style="flex: 1; padding-left: 38px; border-left: 1px solid #eee; margin-left: 20px;">
+        
+        <div class="play-section" style="margin-bottom: 20px;">
+            <a class="btn-large btn-large-green-play" id="Play">Play</a>
+        </div>
+
+        <div class="builder-info">
+            <p style="margin: 0; font-size: 12px;">Builder:</p>
+            <a href="#" id="builder-name" style="color: #0077ff; font-weight: bold; font-size: 18px; text-decoration: none;"></a>
+            <p style="font-size: 11px; color: #666; margin-top: 4px;"></p>
+        </div>
+        <div class="game-stats" style="margin-top: 20px; font-size: 12px; line-height: 1.6;">
+    <p><strong>Created:</strong> <span id="stat-created"></span></p>
+    <p><strong>Visited:</strong> <span id="stat-visited"></span></p>
+</div>
+    </div>
+
+</div>
+              </div>
+           </div>
+        </div>
+        <div id="Footer" class="footer-container">
+        </div>
+     </div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+// 1. Get the data from the URL
+const name = urlParams.get('name');
+const creator = urlParams.get('creator');
+const visits = urlParams.get('visits');
+const created = urlParams.get('created');
+const desc = urlParams.get('desc');
+
+// 2. Inject Name and Description
+if (name) document.querySelector('.game-title').innerText = name;
+if (desc) document.querySelector('.game-description').innerText = desc;
+
+// 3. Inject Builder Info
+// Make sure your HTML has class="builder-name" or id="builder-name"
+const builderElement = document.querySelector('.builder-name') || document.getElementById('builder-name');
+if (builderElement && creator) {
+    builderElement.innerText = creator;
+}
+
+// 4. Inject Stats (Created and Visited)
+// This targets the specific spans we added to your HTML
+const createdSpan = document.getElementById('stat-created');
+const visitsSpan = document.getElementById('stat-visited');
+
+if (createdSpan && created) createdSpan.innerText = created;
+if (visitsSpan && visits) visitsSpan.innerText = visits;
+</script>
+</body>
+</html>

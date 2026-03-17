@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <script type="text/javascript" src="/js/jquery/jquery-1.7.2.min.js"></script> 
+        <link rel="stylesheet" href="css/Fetch.CSS"> 
+        <script type="text/javascript" src="/js/roblox.js"></script>
+        <link rel="stylesheet" href="css/Fetch.CSS">
+    </head>
+<body>
+    <div>
+        <div class="site-header">
+           <div id="navigation-container">
+              <a href="/Default.aspx" class="btn-logo" data-se="nav-logo"></a>
+              <div id="navigation-menu">
+                 <ul>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Home</a></li>
+                    <li><a href="/Games.html" ref="nav-myroblox" data-se="nav-myhome">Games</a></li>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Builders Club</a></li>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Help</a></li>
+                    <li><a href="/Develop.html" ref="nav-myroblox" data-se="nav-myhome">Develop</a></li>
+                 </ul>
+              </div>
+<div id="header-login-wrapper" class="iframe-login-signup">
+    <a id="header-signup" href="Login.html">
+        <span id="header-signup-text">Sign Up</span>
+    </a>
+
+    <span id="header-or">
+        <span id="header-or-text">or</span>
+    </span>
+
+    <span id="login-span">
+        <a id="header-login" class="btn-control btn-control-large" href="Login.html">
+            <span id="header-login-btn">Login</span> <span class="grey-arrow">▼</span>
+        </a>
+    </span>
+</div>
+           </div>
+        </div>
+<style>
+    html {
+        background: #123f83;
+    }
+/* Removes the heavy gray borders from inputs */
+.text-box {
+    border: 1px solid #a7a7a7; /* The classic 2014 gray border */
+    padding: 2px 5px;
+    outline: none; /* Removes the blue glow when clicking */
+}
+
+/* If the border is around the "My Creations" section */
+#manage-section {
+    border: none !important;
+}
+#manage-games-list {
+    border: none; /* THIS IS THE GRAY BORDER */
+    background-color: #fff;
+}
+</style>
+        <div class="forceSpace">&nbsp;</div>
+        <noscript>
+           <div class="SystemAlert">
+              <div class="SystemAlertText">Please enable Javascript to use all the features on this site.</div>
+           </div>
+        </noscript>
+        <div id="BodyWrapper">
+           <div id="RepositionBody">
+              <div id="Body" style="width:970px">
+<div id="Body" style="width:970px">
+    <h1>Welcome To the Develop Page</h1>
+    <p>Manage your places here</p>
+
+    <div style="margin-bottom:10px;">
+        <span class="form-label" style="float:left;padding-top:5px;margin-right:5px;">Game Name</span>
+        <div style="float: left; width: 183px; text-align:left;">
+            <input type="text" id="dev-game-name" class="text-box" style="width:183px;" />
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div style="margin-bottom:10px;">
+        <span class="form-label" style="float:left;padding-top:5px;margin-right:5px;">Thumbnail URL</span>
+        <div style="float: left; width: 183px; text-align:left;">
+            <input type="text" id="dev-game-thumb" class="text-box" placeholder="images/placeholder.png" style="width:183px;" />
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <a class="btn-medium btn-primary" onclick="publishGame()" href="javascript:void(0)">Create Game</a>
+</div>
+    <div id="manage-section" style="margin-top: 30px; width: 100%; max-width: 970px;">
+        <h2 style="font-family: Arial; font-size: 18px; margin-bottom: 12px; border-bottom: none; padding-bottom: 5px;">My Creations</h2>
+    <div id="manage-games-list">
+        </div>
+        <script>
+script
+function publishGame() {
+    const gameName = document.getElementById('dev-game-name').value;
+    const gameThumb = document.getElementById('dev-game-thumb').value; // Removed the || default here
+
+    // 1. Validation: Check for Name AND Image
+    if (!gameName) {
+        alert("Please name your game first!");
+        return;
+    }
+    
+    if (!gameThumb) {
+        alert("Please provide a Thumbnail URL!"); // This makes it required
+        return;
+    }
+
+    // 2. SAVE to localStorage
+    let games = JSON.parse(localStorage.getItem('UserGames')) || [];
+    
+    const newGame = {
+        Name: gameName, 
+        Creator: "EpiKUser",
+        Date: new Date().toLocaleDateString(),
+        Visits: "0",
+        thumb: gameThumb
+    };
+
+    games.push(newGame);
+    localStorage.setItem('UserGames', JSON.stringify(games));
+
+    // 3. Redirect
+    window.location.href = `GameCard.html?name=${encodeURIComponent(gameName)}&creator=EpiKUser`;
+}
+</script>
+              </div>
+           </div>
+        </div>
+ </body>
+</html>

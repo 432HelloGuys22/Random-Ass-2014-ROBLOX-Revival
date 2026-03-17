@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <script type="text/javascript" src="/js/jquery/jquery-1.7.2.min.js"></script> 
+        <link rel="stylesheet" href="css/Fetch.CSS"> 
+        <script type="text/javascript" src="/js/roblox.js"></script>
+        <link rel="stylesheet" href="css/Fetch.CSS">
+    </head>
+<body>
+    <div>
+        <div class="site-header">
+           <div id="navigation-container">
+              <a href="/Default.aspx" class="btn-logo" data-se="nav-logo"></a>
+              <div id="navigation-menu">
+                 <ul>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Home</a></li>
+                 </ul>
+              </div>
+<div id="header-login-wrapper" class="iframe-login-signup">
+    <a id="header-signup" href="Login.html">
+        <span id="header-signup-text">Sign Up</span>
+    </a>
+
+    <span id="header-or">
+        <span id="header-or-text">or</span>
+    </span>
+
+    <span id="login-span">
+        <a id="header-login" class="btn-control btn-control-large" href="Login.html">
+            <span id="header-login-btn">Login</span> <span class="grey-arrow">▼</span>
+        </a>
+    </span>
+</div>
+           </div>
+        </div>
+        <style>
+           /* Replace Lines 38-40 with this */
+html, body {
+    height: 100%;
+    margin: 0;
+    background: #123f83; /* Keeps the blue background */
+}
+
+#Body {
+    width: 970px;
+    margin: 0 auto;
+    background: #fff; /* White content area */
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    min-height: 100vh; /* Forces the white to stretch to the bottom */
+}
+        </style>
+        <div class="forceSpace">&nbsp;</div>
+        <noscript>
+           <div class="SystemAlert">
+              <div class="SystemAlertText">Please enable Javascript to use all the features on this site.</div>
+           </div>
+        </noscript>
+        <div id="BodyWrapper">
+           <div id="RepositionBody">
+              <div id="Body" style="width:970px">
+                 <h2 style="margin-top: 0; font-family: Arial;">Search Users</h2>
+<div style="min-height: 30px; overflow: hidden; margin-bottom: 20px; font-family: Arial;">
+                    <span style="float:left; padding-top:5px; margin-right:10px; font-weight: bold;">Search:</span>
+                    <div style="float: left; width: 183px;">
+                        <input type="text" id="userSearchInput" class="text-box text-box-large" placeholder="Username..." style="width:183px; padding: 4px;" />
+                    </div>
+<div style="float:left; margin-left:10px;">
+    <span class="btn-control btn-control-large" onclick="searchUser()" style="cursor: pointer; display: inline-block;">Search</span>
+</div>
+                </div>
+
+                <div id="searchResults" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; font-family: Arial;">
+                    <p style="color: #666; font-style: italic;">Enter a name above to find a user.</p>
+                </div>
+              </div>
+           </div>
+        </div>
+        <div id="Footer" class="footer-container">
+        </div>
+        <script>
+    function searchUser() {
+        // This gets the text you typed in the search box
+        var name = document.getElementById('userSearchInput').value;
+        var results = document.getElementById('searchResults');
+        
+        if(name.trim() === "") {
+            results.innerHTML = "<p style='color:red;'>Please enter a name.</p>";
+            return;
+        }
+
+        // This creates a "User Card" that links to their profile
+        results.innerHTML = `
+            <div style="border: 1px solid #ccc; padding: 15px; display: flex; align-items: center; gap: 15px; width: 400px; background: #f9f9f9; font-family: Arial;">
+                <div style="width: 60px; height: 60px; background: #ddd; border: 1px solid #ccc;">
+                    <img src="images/User_Avatar.png" style="width:100%; height:100%;" alt="User">
+                </div>
+                <div>
+                    <a href="YourProfile.html?user=${name}" style="font-weight: bold; color: #0022cc; text-decoration: none; font-size: 16px;">${name}</a>
+                    <p style="font-size: 11px; color: #090; margin-top: 5px;">Online</p>
+                </div>
+            </div>
+        `;
+    }
+    
+    // This part makes it so pressing "Enter" also triggers the search
+    document.getElementById("userSearchInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            searchUser();
+        }
+    });
+</script>
+</body>
+</html>
