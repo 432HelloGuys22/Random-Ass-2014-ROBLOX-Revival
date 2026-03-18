@@ -128,6 +128,13 @@ style>
         </div>
     </div>
 </div>
+<h1 id="profileUsername">Loading...</h1> 
+
+<p id="userBlurb">Loading blurb...</p>
+
+<p id="joinDateText">Loading join date...</p>
+
+<p id="userStatus">[ Status ]</p>
     <div style="width: 220px;">
         <h3 style="font-size: 14px; margin: 0 0 10px 0;">Recently Played Games</h3>
         <div id="recent-games" style="font-size: 11px;">
@@ -214,7 +221,7 @@ style>
             if (user) {
                 // 1. Update Username
                 document.getElementById("profileUsername").innerText = user.username;
-
+                document.getElementById("welcome-message").innerText = "Hello, " + user.username + "!";
                 // 2. Update Blurb
                 if (document.getElementById("userBlurb")) {
                     document.getElementById("userBlurb").innerText = user.blurb || "No blurb set.";
@@ -238,7 +245,7 @@ style>
         } catch (e) {
             console.log("Error loading profile:", e);
         }
-    } // <--- THIS IS THE ONE! You need this bracket to close 'loadProfileData'
+    } // This closes the loadProfileData function
 
     // This part makes the functions actually START when the page opens
     window.onload = function() {

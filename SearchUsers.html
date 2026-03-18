@@ -117,7 +117,7 @@ html, body {
     const input = document.getElementById('userSearchInput').value.toLowerCase().trim();
     
     try {
-        // 1. Fetch the real database file
+        // This line (around 121) MUST include the folder name
         const response = await fetch('api/users.json');
         const users = await response.json();
 
