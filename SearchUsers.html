@@ -68,7 +68,7 @@ html, body {
                         <input type="text" id="userSearchInput" class="text-box text-box-large" placeholder="Username..." style="width:183px; padding: 4px;" />
                     </div>
 <div style="float:left; margin-left:10px;">
-    <span class="btn-control btn-control-large" onclick="searchUser()" style="cursor: pointer; display: inline-block;">Search</span>
+    <span class="btn-control btn-control-large" onclick="searchDatabase()">Search</span>
 </div>
                 </div>
 
@@ -108,9 +108,32 @@ html, body {
     // This part makes it so pressing "Enter" also triggers the search
     document.getElementById("userSearchInput").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
-            searchUser();
+            searchDatabase();
         }
     });
+</script>
+<script>
+    async function searchDatabase() {
+    const input = document.getElementById('userSearchInput').value.toLowerCase().trim();
+    
+    try {
+        // 1. Fetch the real database file
+        const response = await fetch('api/users.json');
+        const users = await response.json();
+
+        // 2. Find the user in the list
+        const foundUser = users.find(u => u.username.toLowerCase() === input);
+
+        if (foundUser) {
+            // 3. If found, go to their profile with the URL key
+            window.location.href = `YourProfile.html?user=${foundUser.username}`;
+        } else {
+            alert("User not found in the database!");
+        }
+    } catch (error) {
+        console.error("Database connection failed:", error);
+    }
+}
 </script>
 </body>
 </html>
