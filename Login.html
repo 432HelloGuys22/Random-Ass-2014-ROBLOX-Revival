@@ -86,15 +86,12 @@
         const result = await response.json();
 
         if (response.ok) {
-    // Clear any old account data before saving the new one
-   localStorage.clear(); 
-    
-    // 2. Save the NEW account data from the server
-    localStorage.setItem('currentUser', JSON.stringify(result.user));
-    
-    // 3. Go to the profile
-    window.location.href = "YourProfile.html"; 
-}
+            localStorage.clear();
+            localStorage.setItem('currentUser', JSON.stringify(result.user));
+            
+            // This is the important change:
+            window.location.href = `YourProfile.html?user=${result.user.username}`;
+        }
     } catch (err) {
         console.error("Connection error:", err);
         alert("Could not connect to the server. Make sure server.js is running!");
