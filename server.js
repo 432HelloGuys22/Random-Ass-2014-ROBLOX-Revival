@@ -17,21 +17,25 @@ app.post('/api/register', (req, res) => {
     // Check if user exists, otherwise create them
     let user = users.find(u => u.username.toLowerCase() === username.toLowerCase());
 
-    if (!user) {
-        user = {
-            username: username,
-            robux: "0",
-            tix: "10",
-            status: "Online",
-            avatar: "images/User_Avatar.png",
-            joinDate: "3/18/2026",
-            blurb: "Welcome to my profile!"
-        };
-        users.push(user);
-        fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 4));
-    }
+if (!user) {
+    user = {
+        username: username,
+        robux: "0",
+        tix: "10",
+        status: "Online",
+        avatar: "images/User_Avatar.png",
+        joinDate: "3/18/2026",
+        blurb: "Welcome to my profile!"
+    };
+    users.push(user);
 
-    res.json({ success: true, user: user });
+    try {
+        fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 4));
+        console.log("User successfully saved to users.json!");
+    } catch (err) {
+        console.error("Error writing to users.json:", err);
+    }
+}
 });
 
 app.listen(3000, () => console.log('Server running at http://localhost:3000'));
