@@ -117,22 +117,19 @@ html, body {
     const input = document.getElementById('userSearchInput').value.toLowerCase().trim();
     
     try {
-        // This line (around 121) MUST include the folder name
-        const response = await fetch('api/users.json');
-        const users = await response.json();
+        // 1. Ask the server for this specific user from MongoDB
+        const response = await fetch(`/api/user/${input}`);
+        const data = await response.json();
 
-        // 2. Find the user in the list
-        const foundUser = users.find(u => u.username.toLowerCase() === input);
-
-        if (foundUser) {
-            // 3. If found, go to their profile with the URL key
-            // Change this line:
-            window.location.href = `PrivateProfilePage.html?user=${foundUser.username}`;
+        // 2. If the server found them, redirect to their profile
+        if (data.success && data.user) {
+            window.location.href = `YourProfile.html?user=${data.user.username}`;
         } else {
             alert("User not found in the database!");
         }
     } catch (error) {
         console.error("Database connection failed:", error);
+        alert("Could not connect to the database server.");
     }
 }
 </script>
