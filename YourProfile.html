@@ -216,10 +216,12 @@ style>
         if (!targetUser) return;
 
         try {
-            const response = await fetch('/api/users.json');
-            const users = await response.json();
-            // This is the line that connects the URL to your Database:
-            const user = users.find(u => u.username.toLowerCase() === targetUser.toLowerCase());
+            // Ask your server to find this specific user in the MongoDB cloud
+        const response = await fetch(`/api/user/${targetUser}`);
+        const data = await response.json();
+        
+        // Use the user data returned from the database
+        const user = data.user;
 
             if (user) {
                 // 1. Update Username
