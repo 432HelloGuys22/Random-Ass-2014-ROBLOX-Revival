@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <script type="text/javascript" src="/js/jquery/jquery-1.7.2.min.js"></script> 
+        <link rel="stylesheet" href="/CSS/StyleGuide.css"> 
+        <script type="text/javascript" src="/js/roblox.js"></script>
+        <link rel="stylesheet" href="css/Fetch.CSS">
+    </head>
+<body>
+    <div>
+        <div class="site-header">
+           <div id="navigation-container">
+              <a href="/Default.aspx" class="btn-logo" data-se="nav-logo"></a>
+              <div id="navigation-menu">
+                 <ul>
+                    <li><a href="/" ref="nav-myroblox" data-se="nav-myhome">Home</a></li>
+                 </ul>
+              </div>
+                          <div id="header-login-wrapper" class="iframe-login-signup">
+    <a id="header-signup" href="Login.html">
+        <span id="header-signup-text">Sign Up</span>
+    </a>
+
+    <span id="header-or">
+        <span id="header-or-text">or</span>
+    </span>
+
+    <span id="login-span">
+        <a id="header-login" class="btn-control btn-control-large" href="Login.html">
+            <span id="header-login-btn">Login</span> <span class="grey-arrow">▼</span>
+        </a>
+    </span>
+</div>
+           </div>
+        </div>
+        <style>
+           html {
+           background: #123f83;
+           }
+        </style>
+        <div class="forceSpace">&nbsp;</div>
+        <noscript>
+           <div class="SystemAlert">
+              <div class="SystemAlertText">Please enable Javascript to use all the features on this site.</div>
+           </div>
+        </noscript>
+        <div id="BodyWrapper">
+           <div id="RepositionBody">
+                 <div id="Body" style="width:970px; background: white; display: flex; padding: 20px; gap: 30px; margin: 0 auto; text-align: center;">
+    
+    <div style="width: 300px; display: flex; flex-direction: column; align-items: center;">
+        <h1 id="profileUsername" style="font-size: 28px; margin-bottom: 5px;">Loading Profile...</h1>
+        
+        <p id="userStatus" style="color: #0077ff; font-weight: bold; font-size: 13px; margin-bottom: 10px;">[ Offline ]</p>
+
+        <div style="width: 250px; height: 250px; margin-bottom: 15px;">
+            <img id="userAvatar" src="images/User_Avatar.png" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+
+        <div style="text-align: center; font-size: 13px;">
+            <div style="margin-top: 15px; text-align: center;">
+    <div style="margin-bottom: 5px;">
+    <img src="images/Icons/img-robux.png" width="16" style="vertical-align: middle;">
+    <span id="userRobux" style="color: #008000; font-weight: bold;">0</span>
+</div>
+<div>
+    <img src="images/Tickets.png" width="16" style="vertical-align: middle;">
+    <span id="userTix" style="color: #a34b00; font-weight: bold;">0</span>
+</div>
+</div>
+            <div style="display: flex; gap: 5px; justify-content: center; margin-top: 10px;">
+                <button class="btn-control btn-control-medium">Friend Options ▼</button>
+                <button class="btn-control btn-control-medium">Send Message</button>
+                <button class="btn-control btn-control-medium">More ▼</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="flex: 1; text-align: left;">
+        <div style="margin-bottom: 20px;">
+            <h3 style="padding: 5px 0; font-size: 16px;">Active Places</h3>
+            <div style="padding: 0;">
+                <p id="placeTitle" style="font-weight: bold;">User's Place</p>
+                <p style="font-size: 11px; color: #777;">Visited 0 times (0 last week)</p>
+                <div style="width: 100%; height: 180px; margin-top: 10px; background: #fafafa;"></div>
+            </div>
+        </div>
+
+        <div>
+        </div>
+</div>
+            <div id="friends-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                </div>
+        </div>
+    </div>
+</div>
+              </div>
+           </div>
+        </div>
+        <div id="Footer" class="footer-container">
+        </div>
+     </div>
+     <script>
+        async function loadProfileData() {
+    const params = new URLSearchParams(window.location.search);
+    const targetUser = params.get('user');
+
+    if (!targetUser) return;
+
+    try {
+        const response = await fetch('api/users.json');
+        const users = await response.json();
+        const user = users.find(u => u.username.toLowerCase() === targetUser.toLowerCase());
+
+       if (user) {
+            document.getElementById("profileUsername").innerText = user.username + "'s Profile";
+            document.getElementById("userStatus").innerText = "[ " + user.status + " ]";
+            document.getElementById("userAvatar").src = user.avatar;
+            document.title = user.username + "'s Profile";
+
+            document.querySelectorAll('.robux').forEach(el => el.innerText = "0");
+            document.querySelectorAll('.tickets').forEach(el => el.innerText = "10");
+        } else {
+            document.getElementById("profileUsername").innerText = "User Not Found";
+        }
+        // MAKE SURE NOTHING IS HERE BETWEEN THE BRACE AND THE CATCH
+    } catch (e) {
+        console.error("Database error:", e);
+    }
+}
+window.onload = loadProfileData;
+     </script>
+</body>
+</html>

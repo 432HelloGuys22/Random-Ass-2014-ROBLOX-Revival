@@ -128,13 +128,7 @@ style>
         </div>
     </div>
 </div>
-<h1 id="profileUsername">Loading...</h1> 
-
-<p id="userBlurb">Loading blurb...</p>
-
-<p id="joinDateText">Loading join date...</p>
-
-<p id="userStatus">[ Status ]</p>
+<p id="userStatus"></p>
     <div style="width: 220px;">
         <h3 style="font-size: 14px; margin: 0 0 10px 0;">Recently Played Games</h3>
         <div id="recent-games" style="font-size: 11px;">
@@ -164,21 +158,30 @@ style>
     };
 
     function updateCurrency() {
-        // Pull data from browser memory (Defaults: 0 Robux, 10 Tix)
-        let robux = localStorage.getItem('userRobux') || "0";
-        let tix = localStorage.getItem('userTix') || "10";
+    const savedData = localStorage.getItem('currentUser');
+    
+    if (savedData) {
+        const user = JSON.parse(savedData);
+        
+        // FIX THE NAME: Replaces "Hello, Kosovo!"
+        const welcome = document.querySelector('h1');
+        if (welcome) welcome.innerText = `Hello, ${user.username}!`;
 
-        // Update every element on the page using these classes
-        let rElements = document.getElementsByClassName('robux');
-        for(let i = 0; i < rElements.length; i++) {
-            rElements[i].innerText = parseInt(robux).toLocaleString();
-        }
+        // FIX THE FEED: Replaces "Fatass Cat"
+        const feedName = document.querySelector('.Fatass-Cat');
+        if (feedName) feedName.innerText = user.username; // This replaces the old name
 
-        let tElements = document.getElementsByClassName('tickets');
-        for(let i = 0; i < tElements.length; i++) {
-            tElements[i].innerText = parseInt(tix).toLocaleString();
-        }
+        // FIX THE ROBUX: Updates the 0
+        document.querySelectorAll('.robux').forEach(el => {
+            el.innerText = user.robux; 
+        });
+
+        // FIX THE TIX: Updates the 10
+        document.querySelectorAll('.tickets').forEach(el => {
+            el.innerText = user.tix;
+        });
     }
+}
 
     function redeemCode() {
         let input = document.getElementById('redeemCodeInput');

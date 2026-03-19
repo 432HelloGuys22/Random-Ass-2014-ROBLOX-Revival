@@ -126,7 +126,8 @@ html, body {
 
         if (foundUser) {
             // 3. If found, go to their profile with the URL key
-            window.location.href = `YourProfile.html?user=${foundUser.username}`;
+            // Change this line:
+            window.location.href = `PrivateProfilePage.html?user=${foundUser.username}`;
         } else {
             alert("User not found in the database!");
         }

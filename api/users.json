@@ -1,9 +1,16 @@
 [
   {
-    "userId": 1,
+    "username": "Fatass Cat",
+    "status": "Online: Advanced Town of Robloxia!",
+    "avatar": "file:///home/alepsis2022/Pictures/Screenshots/Screenshot%20From%202026-03-18%2015-41-10.png",
+    "joinDate": "10/12/2012",
+    "blurb": "Welcome to my profile! I am a builder and scripter."
+  },
+  {
     "username": "Kosovo",
-    "blurb": "Welcome to my 2014 Roblox Revival profile!",
-    "joinDate": "01/01/2014",
-    "status": "Online"
+    "status": "Offline",
+    "avatar": "images/User_Avatar.png",
+    "joinDate": "05/20/2014",
+    "blurb": "I love 2014 Roblox."
   }
 ]

@@ -67,5 +67,39 @@
         <div id="Footer" class="footer-container">
         </div>
      </div>
+      <script>
+         async function doLogin() {
+    const username = document.getElementById('username-input').value;
+
+    if (!username) {
+        alert("Please enter a username!");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: username })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+    // Clear any old account data before saving the new one
+   localStorage.clear(); 
+    
+    // 2. Save the NEW account data from the server
+    localStorage.setItem('currentUser', JSON.stringify(result.user));
+    
+    // 3. Go to the profile
+    window.location.href = "YourProfile.html"; 
+}
+    } catch (err) {
+        console.error("Connection error:", err);
+        alert("Could not connect to the server. Make sure server.js is running!");
+    }
+}
+     </script>
 </body>
 </html>

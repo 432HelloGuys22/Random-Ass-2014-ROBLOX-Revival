@@ -9920,7 +9920,7 @@ div.mySubmenuFixed {
     margin: 0 auto !important;
     min-height: 600px; /* Adjust this so it doesn't cut off */
     padding-bottom: 50px;
-    border: 1px solid #ccc;
+    border: none !important;
     display: block;
     overflow: hidden; /* Fixes container height issues */
 }
