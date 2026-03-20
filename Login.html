@@ -102,72 +102,74 @@ function logout() {
         <div id="Footer" class="footer-container">
         </div>
      </div>
-      <script>
-         async function doLogin() {
-    const username = document.getElementById('username-input').value;
-
-    if (!username) {
-        alert("Please enter a username!");
-        return;
-    }
-
-    try {
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: username })
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            localStorage.clear();
-            localStorage.setItem('currentUser', JSON.stringify(result.user));
-            
-            // This is the important change:
-            window.location.href = `YourProfile.html?user=${result.user.username}`;
+     <script>
+    // 1. THIS RUNS IMMEDIATELY WHEN PAGE LOADS
+    document.addEventListener("DOMContentLoaded", function () {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            window.location.href = `YourProfile.html?user=${user.username}`;
         }
-    } catch (err) {
-        console.error("Connection error:", err);
-        alert("Could not connect to the server. Make sure server.js is running!");
-    }
-}
-     </script>
-     <div>
-      <script>
-        async function doSignUp() {
-    const username = document.getElementById('username-input').value.trim();
-    const password = document.getElementById('password-input').value.trim();
+    });
 
-    if (!username || !password) {
-        alert("Please enter both a username and password!");
-        return;
-    }
+    // 2. YOUR LOGIN FUNCTION
+    async function doLogin() {
+        const username = document.getElementById('username-input').value.trim();
+        const password = document.getElementById('password-input').value.trim();
 
-    try {
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            // ✅ THE FIX: Save the user to the browser's memory
-            localStorage.setItem('currentUser', JSON.stringify(result.user));
-            
-            alert("Account created! Redirecting...");
-            
-            // Redirect to the profile page
-            window.location.href = `YourProfile.html?user=${result.user.username}`;
-        } else {
-            alert("Error: " + result.message);
+        if (!username || !password) {
+            alert("Please enter both a username and password!");
+            return;
         }
-    } catch (err) {
-        alert("Could not connect to the BloxData cloud.");
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                localStorage.setItem('currentUser', JSON.stringify(result.user));
+                window.location.href = `YourProfile.html?user=${result.user.username}`;
+            } else {
+                alert("Login failed: " + result.message);
+            }
+        } catch (err) {
+            alert("Server error. Is the BloxData cloud running?");
+        }
     }
-}
+
+    // 3. YOUR SIGNUP FUNCTION
+    async function doSignUp() {
+        const username = document.getElementById('username-input').value.trim();
+        const password = document.getElementById('password-input').value.trim();
+
+        if (!username || !password) {
+            alert("Please enter both a username and password!");
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                localStorage.setItem('currentUser', JSON.stringify(result.user));
+                alert("Account created! Redirecting...");
+                window.location.href = `YourProfile.html?user=${result.user.username}`;
+            } else {
+                alert("Error: " + result.message);
+            }
+        } catch (err) {
+            alert("Could not connect to the BloxData cloud.");
+        }
+    }
       </script>
      </div>
 </body>
