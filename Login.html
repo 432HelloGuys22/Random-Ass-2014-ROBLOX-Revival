@@ -49,17 +49,26 @@
         <div id="BodyWrapper">
            <div id="RepositionBody">
               <div id="Body" style="width:970px">
-                 <h1>Welcome To Roblox</h1>
-                 <p>This is an 2014 roblox revival</p>
-                 <p>Login First So you can be a sigma like us</p>
-                 <p>Or Sign in<p>
-                    <div style="min-height: 30px;">
-                      <span class="form-label" style="float:left;padding-top:5px;margin-right:5px;">Username</span>
-  <div style="float: left; width: 183px; text-align:left;">
-        <input type="text" id="username-input" class="text-box text-box-small" value="" style="width:183px;" />    <a class="btn-medium btn-primary" onclick="Roblox.LoginHandler.doLogin()" href="javascript:void(0)">
-    Log In
-</a>
-  </div>
+                    <div id="LoginContainer" style="margin: 20px 0 20px 50px; text-align: left; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    
+    <h2 style="font-size: 18px; margin-bottom: 15px;">Login First So you can be a sigma like us</h2>
+
+    <div style="margin-bottom: 10px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 2px;">Username</label>
+        <input type="text" id="username-input" class="text-box" style="width: 250px; padding: 5px; border: 1px solid #a7a7a7;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 2px;">Password</label>
+        <input type="password" id="password-input" class="text-box" style="width: 250px; padding: 5px; border: 1px solid #a7a7a7;">
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: center;">
+        <a class="btn-medium btn-primary" onclick="doLogin()" style="cursor: pointer; white-space: nowrap; text-decoration: none;">Log In</a>
+        <a class="btn-medium btn-neutral" onclick="doSignUp()" style="cursor: pointer; white-space: nowrap; text-decoration: none;">Sign Up</a>
+    </div>
+
+</div>
         </div>
               </div>
            </div>
@@ -98,5 +107,38 @@
     }
 }
      </script>
+     <div>
+      <script>
+        async function doSignUp() {
+    const username = document.getElementById('username-input').value.trim();
+    const password = document.getElementById('password-input').value.trim();
+
+    // 1. Mandatory Check (Frontend)
+    if (!username || !password) {
+        alert("STOP! You must enter both a username and a password to join.");
+        return; // This stops the function from running
+    }
+
+    try {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Account created! Welcome to the revival.");
+            window.location.href = `YourProfile.html?user=${result.user.username}`;
+        } else {
+            alert("Error: " + result.message);
+        }
+    } catch (err) {
+        alert("Could not connect to the BloxData cloud.");
+    }
+}
+      </script>
+     </div>
 </body>
 </html>

@@ -31,22 +31,19 @@ const User = mongoose.model('User', userSchema);
 
 // Route: Register or Login a user
 app.post('/api/register', async (req, res) => {
-    const { username } = req.body;
+    const { username, password } = req.body;
+
+    // 2. Mandatory Check (Backend)
+    if (!username || !password) {
+        return res.status(400).json({ success: false, message: "Username and Password are required!" });
+    }
+
     try {
-        // Find user (case-insensitive)
-        let user = await User.findOne({ username: new RegExp(`^${username}$`, 'i') });
-        
-        if (!user) {
-            // Create new user if they don't exist
-            user = new User({ username });
-            await user.save();
-            console.log(`✨ New User Created: ${username}`);
-        }
-        
-        res.json({ success: true, user });
+        const newUser = new User({ username, password });
+        await newUser.save();
+        res.json({ success: true, user: newUser });
     } catch (err) {
-        console.error("Registration Error:", err);
-        res.status(500).json({ success: false, error: "Database error" });
+        res.status(500).json({ success: false, message: "User already exists or database error." });
     }
 });
 
