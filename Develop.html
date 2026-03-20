@@ -21,21 +21,42 @@
                     <li><a href="/Develop.html" ref="nav-myroblox" data-se="nav-myhome">Develop</a></li>
                  </ul>
               </div>
-<div id="header-login-wrapper" class="iframe-login-signup">
-    <a id="header-signup" href="Login.html">
-        <span id="header-signup-text">Sign Up</span>
-    </a>
-
-    <span id="header-or">
-        <span id="header-or-text">or</span>
-    </span>
-
-    <span id="login-span">
-        <a id="header-login" class="btn-control btn-control-large" href="Login.html">
-            <span id="header-login-btn">Login</span> <span class="grey-arrow">▼</span>
-        </a>
-    </span>
+<div id="header-login-container">
+    <div id="header-login-wrapper" class="iframe-login-signup">
+        <div id="navigation-auth-content">
+            <a id="header-signup" href="Login.html">Sign Up</a>
+            <span id="header-or">or</span>
+            <span id="login-span">
+                <a id="header-login" class="btn-control btn-control-large">Login <span class="grey-arrow">▼</span></a>
+            </span>
+        </div>
+    </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const authContent = document.getElementById('navigation-auth-content');
+    const savedUser = localStorage.getItem('currentUser');
+
+    if (savedUser && authContent) {
+        const user = JSON.parse(savedUser);
+        
+        // This replaces the "Sign Up | Login" text with the User Info
+        authContent.innerHTML = `
+            <div class="user-info-header" style="display: flex; align-items: center; gap: 10px; color: white; font-weight: bold;">
+                <span>Welcome, ${user.username}</span>
+                <a href="YourProfile.html?user=${user.username}" style="color: #fff; text-decoration: underline; font-size: 12px;">Profile</a>
+                <a href="#" onclick="logout()" style="color: #ccc; font-size: 11px; text-decoration: none;">[Logout]</a>
+            </div>
+        `;
+    }
+});
+
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.reload(); // Refresh to show "Sign Up" again
+}
+</script>
            </div>
         </div>
 <style>

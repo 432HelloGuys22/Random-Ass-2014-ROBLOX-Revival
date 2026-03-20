@@ -22,15 +22,41 @@
                  </ul>
               </div>
                <div id="header-login-container">
-                 <div id="header-login-wrapper" class="iframe-login-signup" data-display-opened="">
-                    <a id="header-signup" href="Login.html">Sign Up</a>
-                    <span id="header-or">or</span>
-                    <span id="login-span">
-                    <a id="header-login" class="btn-control btn-control-large">Login <span class="grey-arrow">▼</span></a>
-                    </span>
-                    <div id="iFrameLogin" style="display: none; height: 128px;">
-                       <iframe class="login-frame" src="https://web.archive.org/web/20140228121042if_/https://www.roblox.com/Login/iFrameLogin.aspx?loginRedirect=False&amp;parentUrl=https%3a%2f%2fwww.roblox.com%2fNewLogin%3fReturnUrl%3d%2fdevelop" scrolling="no" frameborder="0"></iframe>
-                    </div>
+    <div id="header-login-wrapper" class="iframe-login-signup">
+        <div id="navigation-auth-content">
+            <a id="header-signup" href="Login.html">Sign Up</a>
+            <span id="header-or">or</span>
+            <span id="login-span">
+                <a id="header-login" class="btn-control btn-control-large">Login <span class="grey-arrow">▼</span></a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const authContent = document.getElementById('navigation-auth-content');
+    const savedUser = localStorage.getItem('currentUser');
+
+    if (savedUser && authContent) {
+        const user = JSON.parse(savedUser);
+        
+        // This replaces the "Sign Up | Login" text with the User Info
+        authContent.innerHTML = `
+            <div class="user-info-header" style="display: flex; align-items: center; gap: 10px; color: white; font-weight: bold;">
+                <span>Welcome, ${user.username}</span>
+                <a href="YourProfile.html?user=${user.username}" style="color: #fff; text-decoration: underline; font-size: 12px;">Profile</a>
+                <a href="#" onclick="logout()" style="color: #ccc; font-size: 11px; text-decoration: none;">[Logout]</a>
+            </div>
+        `;
+    }
+});
+
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.reload(); // Refresh to show "Sign Up" again
+}
+</script>
                  </div>
               </div>
            </div>
@@ -113,10 +139,9 @@
     const username = document.getElementById('username-input').value.trim();
     const password = document.getElementById('password-input').value.trim();
 
-    // 1. Mandatory Check (Frontend)
     if (!username || !password) {
-        alert("STOP! You must enter both a username and a password to join.");
-        return; // This stops the function from running
+        alert("Please enter both a username and password!");
+        return;
     }
 
     try {
@@ -129,7 +154,12 @@
         const result = await response.json();
 
         if (result.success) {
-            alert("Account created! Welcome to the revival.");
+            // ✅ THE FIX: Save the user to the browser's memory
+            localStorage.setItem('currentUser', JSON.stringify(result.user));
+            
+            alert("Account created! Redirecting...");
+            
+            // Redirect to the profile page
             window.location.href = `YourProfile.html?user=${result.user.username}`;
         } else {
             alert("Error: " + result.message);
