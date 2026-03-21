@@ -32,7 +32,55 @@
         </div>
     </div>
 </div>
+</div> 
+    </div>
 
+    <div id="sub-navigation-header" style="background: #222; border-bottom: 1px solid #000; padding: 4px 0; display: none;">
+        <div style="width: 970px; margin: 0 auto; display: flex; justify-content: center; gap: 15px;">
+            <a id="sub-nav-profile" href="YourProfile.html" style="color: #fff; text-decoration: none; font-family: Arial; font-size: 11px; font-weight: bold;">Profile</a>
+            <a href="/Character.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Character</a>
+            <a href="/Friends.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Friends</a>
+            <a href="/Groups.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Groups</a>
+            <a href="/Inventory.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Inventory</a>
+            <a href="/Sets.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Sets</a>
+            <a href="/Trade.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Trade</a>
+            <a href="/Money.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Money</a>
+            <a href="/Advertising.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Advertising</a>
+            <a href="/Account.html" style="color: #ccc; text-decoration: none; font-family: Arial; font-size: 11px;">Account</a>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const authContent = document.getElementById('navigation-auth-content');
+        const subBar = document.getElementById('sub-navigation-header'); // Find the bar
+        const savedUser = localStorage.getItem('currentUser');
+
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            
+            // 1. Show the Black Bar
+            if (subBar) subBar.style.display = 'block';
+
+            // 2. Update the Profile Link inside the bar
+            const profileLink = document.getElementById('sub-nav-profile');
+            if (profileLink) {
+                profileLink.href = `YourProfile.html?user=${user.username}`;
+            }
+
+            // 3. Your existing Welcome message code (Lines 41-52 in your image)
+            if (authContent) {
+                authContent.innerHTML = `
+                    <div class="user-info-header" style="display: flex; align-items: center; gap: 10px; color: white; font-weight: bold;">
+                        <span>Welcome, ${user.username}</span>
+                        <a href="YourProfile.html?user=${user.username}" style="color: #fff; text-decoration: underline; font-size: 12px;">Profile</a>
+                        <a href="#" onclick="logout()" style="color: #ccc; font-size: 11px; text-decoration: none;">[Logout]</a>
+                    </div>
+                `;
+            }
+        }
+    });
+    </script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const authContent = document.getElementById('navigation-auth-content');
